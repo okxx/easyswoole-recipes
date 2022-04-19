@@ -1,0 +1,44 @@
+create database recipes charset=utf8;
+
+CREATE TABLE  `tc_user_info` (
+  `id` int NOT NULL PRIMARY KEY AUTO_INCREMENT,
+  `account` char(25) NOT NULL COMMENT '用户账号',
+  `password` char(255) NOT NULL COMMENT '用户密码',
+  `salting` char(255) NOT NULL COMMENT '用户盐码',
+  `nickname` char(255) NULL DEFAULT NULL COMMENT '用户昵称',
+  `avatar` char(255) NULL DEFAULT NULL COMMENT '用户头像',
+  `status` tinyint(1) NOT NULL DEFAULT 0 COMMENT '用户状态：0=有效 1=无效',
+  `create_time` datetime NULL DEFAULT NULL COMMENT '用户创建时间',
+  `update_time` datetime NULL DEFAULT NULL COMMENT '用户更新时间'
+)
+ENGINE = INNODB DEFAULT COLLATE = 'utf8_general_ci';
+
+
+CREATE TABLE  `tc_goods_info` (
+  `id` int NOT NULL PRIMARY KEY AUTO_INCREMENT,
+  `name` char(25) NOT NULL COMMENT '商品名称',
+  `image` char(255) NOT NULL COMMENT '商品图片',
+  `price` char(255) NOT NULL COMMENT '商品金额',
+  `create_time` datetime NULL DEFAULT NULL COMMENT '创建时间',
+  `update_time` datetime NULL DEFAULT NULL COMMENT '更新时间'
+)
+ENGINE = INNODB DEFAULT COLLATE = 'utf8_general_ci';
+
+CREATE TABLE  `tc_order_info` (
+  `id` int NOT NULL PRIMARY KEY AUTO_INCREMENT,
+  `on` varchar(25) NOT NULL COMMENT '订单编号',
+  `payment_on` varchar(255) NOT NULL COMMENT '第三方支付单号',
+  `amount_price` double(12,2) NOT NULL COMMENT '应付金额',
+  `actual_price` varchar(255) NOT NULL COMMENT '实付金额',
+  `user_id` int NOT NULL COMMENT '用户id',
+  `goods_id` int NOT NULL COMMENT '订单编号',
+  `goods_meta` text NULL DEFAULT NULL COMMENT '商品元数据',
+  `coupon_id` int NULL DEFAULT 0 COMMENT '优惠券ID',
+  `coupon_meta` text NULL DEFAULT NULL COMMENT '优惠券信息',
+  `payment_state` tinyint(1) NOT NULL DEFAULT 0 COMMENT '支付状态: 0=未支付 1=已支付',
+  `payment_expire_time` datetime NULL DEFAULT NULL COMMENT '付款到期时间[NULL:永不过期]',
+  `status` tinyint(1) NOT NULL DEFAULT 0 COMMENT '订单状态：0=有效 1=无效',
+  `create_time` datetime NULL DEFAULT NULL COMMENT '创建时间',
+  `update_time` datetime NULL DEFAULT NULL COMMENT '更新时间'
+)
+ENGINE = INNODB DEFAULT COLLATE = 'utf8_general_ci';

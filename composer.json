@@ -1,0 +1,28 @@
+{
+    "require": {
+        "easyswoole/easyswoole": "^3.5",
+        "easyswoole/fast-cache": "^1.0",
+        "easyswoole/swoole-ide-helper": "^1.3",
+        "easyswoole/redis-pool": "^2.2",
+        "easyswoole/redis": "^1.3",
+        "easyswoole/validate": "^2.1",
+        "ext-json": "*",
+        "easyswoole/atomic-limit": "^2.0",
+        "easyswoole/file-watcher": "^1.0",
+        "easyswoole/task": "^1.1",
+        "easyswoole/queue": "3.x",
+        "easyswoole/nsq": "^1.0",
+        "easyswoole/jwt": "^1.2",
+        "easyswoole/mysqli": "2.x",
+        "easyswoole/orm": "^1.5",
+        "easyswoole/db-migrate": "^1.0",
+        "webmozart/assert": "^1.10",
+        "ext-bcmath": "*",
+        "ext-mbstring": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "App/"
+        }
+    }
+}
