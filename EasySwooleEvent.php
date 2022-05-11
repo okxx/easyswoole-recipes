@@ -10,6 +10,8 @@ use EasySwoole\Component\Di;
 use EasySwoole\EasySwoole\AbstractInterface\Event;
 use EasySwoole\EasySwoole\Swoole\EventRegister;
 use EasySwoole\FastCache\Cache;
+use EasySwoole\FileWatcher\FileWatcher;
+use EasySwoole\FileWatcher\WatchRule;
 use EasySwoole\ORM\Db\Connection;
 use EasySwoole\ORM\DbManager;
 use EasySwoole\Redis\Config\RedisConfig;
@@ -43,5 +45,15 @@ class EasySwooleEvent implements Event
         ServerHotReload::getInstance()->initialize();
 
         Cache::getInstance()->setTempDir(EASYSWOOLE_TEMP_DIR)->attachToServer($server);
+
+        // hot reload
+        $watcher = new FileWatcher();
+        $rule = new WatchRule(EASYSWOOLE_ROOT); // 设置监控规则和监控目录
+        $watcher->addRule($rule);
+        $watcher->setOnChange(function () {
+            Logger::getInstance()->info('file change ,reload!!!');
+            ServerManager::getInstance()->getSwooleServer()->reload();
+        });
+        $watcher->attachServer(ServerManager::getInstance()->getSwooleServer());
     }
 }
